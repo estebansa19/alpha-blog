@@ -1,4 +1,4 @@
-<div id='page-content'>
+<div class='page-content'>
   <div class='container' id='home-container'>
     <div class='jumbotron p-5 mb-4 bg-light rounded-3 text-center text-white'>
       <div class='container-fluid py-5'>
@@ -40,14 +40,14 @@
       </div>
     </div>
   </div>
-
-  <%= link_to 'Article listing', articles_path %> |
-  <%= link_to 'About', about_path %>
 </div>
 
 <footer id='sticky-footer' class='py-4 bg-dark text-white fixed-bottom'>
   <div class='container text-center'>
-    <small>Copyright &copy; Your Website</small>
+    <small>
+      Copyright &copy; 
+      <%= link_to 'Esteban Saldarriaga', 'https://github.com/estebansa19', class: 'text-white' %>
+    </small>
   </div>
 </footer>
 
