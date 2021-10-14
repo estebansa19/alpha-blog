@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, notice: 'Article was created successfully.'
     else
-      render :new
+      render 'new'
     end
   end
 

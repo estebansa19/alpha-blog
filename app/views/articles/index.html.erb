@@ -2,6 +2,8 @@
   <h1 class='text-center mt-4'>Listing all articles</h1>
 
   <div class='container mt-3'>
+    <%== link_to 'New article', new_article_path, class: 'btn btn-success' %>
+
     <% @articles.in_groups_of(4, false) do |group| %>
       <div class='row'>
         <% group.each do |article| %>
