@@ -1,6 +1,12 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
 
+  def index
+    @users = User.left_joins(:articles).select(
+      :id, :username, :email, :created_at, Article.arel_table[:id].count.as('articles_count')
+    ).group(:id)
+  end
+
   def show
     @articles = @user.articles
   end
