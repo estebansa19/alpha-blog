@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
 
   def index
-    @articles = Article.includes(:user)
+    @articles = Article.includes(:user).paginate(page: params[:page], per_page: 4)
   end
 
   def show

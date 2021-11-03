@@ -4,11 +4,11 @@ class UsersController < ApplicationController
   def index
     @users = User.left_joins(:articles).select(
       :id, :username, :email, :created_at, Article.arel_table[:id].count.as('articles_count')
-    ).group(:id)
+    ).group(:id).paginate(page: params[:page], per_page: 5)
   end
 
   def show
-    @articles = @user.articles
+    @articles = @user.articles.paginate(page: params[:page], per_page: 4)
   end
 
   def new
