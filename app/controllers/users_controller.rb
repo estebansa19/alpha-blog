@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: %i[show edit update]
 
   def index
     @users = User.left_joins(:articles).select(
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      session[:user_id] = @user.id
       redirect_to articles_path,
         notice: "Welcome to the Alpha Blog #{@user.username}, sign up successfully"
     else
