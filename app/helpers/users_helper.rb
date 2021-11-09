@@ -10,13 +10,5 @@ module UsersHelper
     image_tag gravatar_url, alt: user.username, class: css_class
   end
 
-  def current_user
-    return unless session[:user_id]
 
-    @current_user ||= User.find(session[:user_id])
-  end
-
-  def logged_in?
-    !!current_user
-  end
 end

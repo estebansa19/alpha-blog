@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: %i[show edit update destroy]
+  before_action :require_user, except: %i[index show]
+  before_action :require_same_user, only: %i[edit update destroy]
 
   def index
     @articles = Article.includes(:user).paginate(page: params[:page], per_page: 4)
@@ -14,7 +16,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    @article.user = User.first
+    @article.user = current_user
 
     if @article.save
       redirect_to @article, notice: 'Article was created successfully.'
@@ -50,5 +52,11 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to articles_path, alert: 'Article not found'
+  end
+
+  def require_same_user
+    return unless current_user != @article.user
+
+    redirect_to article_path(@article), notice: 'You can only edit or delete your own article'
   end
 end
