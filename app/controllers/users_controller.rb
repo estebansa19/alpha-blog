@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show edit update]
+  before_action :set_user, only: %i[show edit update destroy]
+  before_action :require_user, only: %i[edit update]
+  before_action :require_same_user, only: %i[edit update destroy]
 
   def index
     @users = User.left_joins(:articles).select(
@@ -38,6 +40,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    session[:user_id] = nil
+
+    redirect_to articles_path, notice: 'Account and all associated articles successfully deleted'
+  end
+
   private
 
   def user_params
@@ -48,5 +57,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to articles_path, alert: 'User not found'
+  end
+
+  def require_same_user
+    return unless current_user != @user
+
+    redirect_to user_path(@user), alert: 'You can only edit your own account'
   end
 end

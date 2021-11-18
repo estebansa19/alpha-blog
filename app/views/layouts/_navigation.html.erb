@@ -42,7 +42,10 @@
                   class: 'dropdown-item' %>
               </li>
 
-              <li><a class='dropdown-item' href='#'>Something else here</a></li>
+              <li>
+                <%= link_to 'Delete profile', user_path(current_user), method: :delete,
+                  class: 'dropdown-item text-danger', data: { confirm: 'Are you sure?' } %>
+              </li>              
             </ul>
           </li>
 
