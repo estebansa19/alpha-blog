@@ -18,7 +18,7 @@
               <div class= article-options'>
                 <%= link_to 'View', article_path(article), class: 'btn btn-outline-success' %>
 
-                <% if logged_in? && article.user_id === current_user.id %>
+                <% if logged_in? && (article.user_id === current_user.id || current_user.admin?) %>
                   <%= link_to 'Edit', edit_article_path(article), class: 'btn btn-outline-info' %>
                   <%= link_to 'Delete', article_path(article), method: :delete,
                     class: 'btn btn-outline-danger', data: {  confirm: 'Are you sure?' } %>
