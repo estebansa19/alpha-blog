@@ -57,6 +57,6 @@ class ArticlesController < ApplicationController
   def require_same_user
     return unless current_user != @article.user && !current_user.admin?
 
-    redirect_to article_path(@article), notice: 'You can only edit or delete your own article'
+    redirect_to article_path(@article), alert: 'You can only edit or delete your own article'
   end
 end
